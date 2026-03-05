@@ -12,4 +12,6 @@ const BmiSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
+
+
 export const BMI = mongoose.model("BMI",BmiSchema);
