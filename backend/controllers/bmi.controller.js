@@ -12,6 +12,7 @@ export const addBmi = async(req,res)=>{
 
      const models = [
  "meta-llama/llama-3.2-3b-instruct:free",
+ 
  "qwen/qwen2-7b-instruct:free",
  "deepseek/deepseek-chat:free",
  "mistralai/mistral-7b-instruct:free",
