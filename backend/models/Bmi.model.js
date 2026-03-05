@@ -8,7 +8,7 @@ const BmiSchema = new mongoose.Schema({
   height: Number, // Store in cm
   weight: Number, // Store in kg
   bmiValue: Number,   
-  aiInsights: String, // The AI-generated feedback
+  aiInsights: String, // The AI-generated feedback which is basically stored in ts 
   date: { type: Date, default: Date.now }
 });
 
