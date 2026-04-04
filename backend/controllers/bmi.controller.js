@@ -10,14 +10,14 @@ export const addBmi = async(req,res)=>{
     const heightInMeters = height / 100;
     const calculatedBmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
 
-     const models = [
- "meta-llama/llama-3.2-3b-instruct:free",
- 
- "qwen/qwen2-7b-instruct:free",
- "deepseek/deepseek-chat:free",
- "mistralai/mistral-7b-instruct:free",
- "nousresearch/hermes-2-pro-llama-3-8b:free"
-];
+    const models = [
+    "openrouter/free",                          // ✅ Auto-picks any available free model
+    "meta-llama/llama-3.3-70b-instruct:free",   // ✅ Valid April 2026
+    "google/gemma-3-27b-it:free",               // ✅ Valid April 2026
+    "deepseek/deepseek-r1:free",                // ✅ Valid April 2026
+    "mistralai/mistral-small-3.1-24b-instruct:free" // ✅ Valid April 2026
+  ];
+
 
     let aiInsight = null;
 

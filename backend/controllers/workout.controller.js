@@ -1,19 +1,18 @@
 import { openai } from "../config/openai.js";
 import { Workout } from "../models/workout.mode.js";
 
-
 export const generateWorkout = async (req, res) => {
   try {
     const userId = req.user.id;
     const { gender, currentWeight, targetWeight, fitnessLevel, primaryGoal, daysPerWeek, workoutType } = req.body;
 
     const models = [
-      "meta-llama/llama-3.2-3b-instruct:free",
-      "qwen/qwen2-7b-instruct:free",
-      "deepseek/deepseek-chat:free",
-      "mistralai/mistral-7b-instruct:free",
-      "nousresearch/hermes-2-pro-llama-3-8b:free"
-    ];
+  "openrouter/free",                          // ✅ Auto-picks any available free model
+  "meta-llama/llama-3.3-70b-instruct:free",   // ✅ Valid April 2026
+  "google/gemma-3-27b-it:free",               // ✅ Valid April 2026
+  "deepseek/deepseek-r1:free",                // ✅ Valid April 2026
+  "mistralai/mistral-small-3.1-24b-instruct:free" // ✅ Valid April 2026
+];
 
     let aiWorkoutPlan = null;
 
@@ -21,10 +20,11 @@ export const generateWorkout = async (req, res) => {
       try {
         const completion = await openai.chat.completions.create({
           model,
+          max_tokens: 1500,  // ✅ Force a long response
           messages: [
             {
               role: "user",
-              content: `Create a personalized workout plan for a user with the following details:
+              content: `Create a DETAILED personalized workout plan for:
               - Gender: ${gender}
               - Current Weight: ${currentWeight} kg
               - Target Weight: ${targetWeight} kg
@@ -33,23 +33,42 @@ export const generateWorkout = async (req, res) => {
               - Days Per Week: ${daysPerWeek}
               - Preferred Workout Type: ${workoutType}
 
-              As their fitness buddy who knows them well, provide:
-              - A weekly workout schedule (day-by-day breakdown)
-              - Specific exercises with sets and reps for each day
-              - Warm-up and cool-down recommendations
-              - Tips tailored to their fitness level and goal
-              - A motivational note based on their current vs target weight journey
+              You are their long-time gym buddy who genuinely cares about their progress.
+              Be thorough, warm, and encouraging throughout.
 
-              Be friendly, engaging, and talk like a long-time gym buddy.
-              Keep it under 500 words.`
+              Structure your response exactly like this:
+
+              👋 PERSONAL NOTE
+              Write a friendly personalized message about their ${currentWeight}kg to ${targetWeight}kg journey. Make it emotional and motivating.
+
+              📅 WEEKLY SCHEDULE OVERVIEW
+              List all ${daysPerWeek} workout days and what muscle groups or focus each day targets.
+
+              🏋️ DAY-BY-DAY BREAKDOWN
+              For each workout day provide:
+              - Day name and focus
+              - 5 minute warm-up routine (specific movements)
+              - 6 to 8 exercises with sets, reps, and rest time
+              - 5 minute cool-down routine (specific stretches)
+
+              💡 LEVEL-SPECIFIC TIPS
+              Give 5 detailed tips specifically for someone at the ${fitnessLevel} level chasing ${primaryGoal}.
+
+              🍽️ NUTRITION SYNC
+              Brief advice on eating around workouts to support the ${primaryGoal} goal.
+
+              🔥 CLOSING MOTIVATION
+              End with a powerful personalized motivational paragraph addressing their specific journey.`
             }
           ]
         });
 
-        aiWorkoutPlan = completion.choices[0].message.content;
+        aiWorkoutPlan = completion.choices[0]?.message?.content;
+        console.log(`✅ Model succeeded: ${model}`);  // ✅ Know which model worked
         break;
       } catch (err) {
-        console.log(`Model ${model} failed`);
+        // ✅ Now you'll actually see what's going wrong
+        console.log(`❌ Model ${model} failed — Status: ${err.status} | Message: ${err.message}`);
       }
     }
 
@@ -82,7 +101,6 @@ export const generateWorkout = async (req, res) => {
     });
   }
 };
-
 
 export const getWorkouts = async (req, res) => {
   try {
