@@ -4,7 +4,7 @@ import { Sleep } from "../models/sleep.model.js";
 export const addSleep = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { amount, qualityLevel, wakingMood, text } = req.body;
+    const { amount, qualityLevel, wakingMood, text,date } = req.body;
 
     const models = [
       "openrouter/free",
@@ -78,7 +78,8 @@ export const addSleep = async (req, res) => {
       qualityLevel,
       wakingMood,
       text,
-      aiInsights: aiInsight
+      aiInsights: aiInsight,
+      date
     });
 
     return res.status(201).json({

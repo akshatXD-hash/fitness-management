@@ -29,7 +29,8 @@ const SleepSchema = new mongoose.Schema({
   aiInsights: String,
   date: { 
     type: Date, 
-    default: Date.now 
+    required: true,          
+    default: Date.now        
   }
 });
 
