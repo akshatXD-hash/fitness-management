@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import { userRouter } from "./routes/userRouter.js";
 import { bmiRouter } from "./routes/bmiRouter.js";
+import { workoutRouter } from "./routes/workoutRouter.js";
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(cookieParser())
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 app.use("/api/bmi",bmiRouter);
+app.use("/api/workout",workoutRouter);
+
 
 const PORT = process.env.PORT||5000;
 
