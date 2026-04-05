@@ -4,5 +4,5 @@ import { generateWorkout, getWorkouts } from "../controllers/workout.controller.
 
 export const workoutRouter = express.Router();
 
-workoutRouter.post("/generateworkout",authMiddleware,generateWorkout)
-workoutRouter.get("/getworkouts",getWorkouts);
+workoutRouter.post("/generateworkout", authMiddleware, generateWorkout)
+workoutRouter.get("/getworkouts", authMiddleware, getWorkouts);
