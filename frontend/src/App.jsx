@@ -11,6 +11,7 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 import { NutritionTracker } from "./pages/NutritionTracker";
 import { DietPlanner } from "./pages/DietPlanner";
+import { HydrationTracker } from "./pages/HydrationTracker";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/sleep" element={<ProtectedRoute><SleepTracker /></ProtectedRoute>} />
             <Route path="/nutrition" element={<ProtectedRoute><NutritionTracker /></ProtectedRoute>} />
             <Route path="/diet" element={<ProtectedRoute><DietPlanner /></ProtectedRoute>} />
+            <Route path="/hydration" element={<ProtectedRoute><HydrationTracker /></ProtectedRoute>} />
             
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />

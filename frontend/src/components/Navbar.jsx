@@ -44,6 +44,9 @@ export const Navbar = () => {
               <Link to="/diet" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-1">
                 Diet Planner
               </Link>
+              <Link to="/hydration" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-1">
+                Hydration
+              </Link>
             </div>
           )}
 
