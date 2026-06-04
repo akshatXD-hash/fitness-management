@@ -38,6 +38,12 @@ export const Navbar = () => {
               <Link to="/sleep" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-1">
                 Sleep
               </Link>
+              <Link to="/nutrition" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-1">
+                Nutrition
+              </Link>
+              <Link to="/diet" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-1">
+                Diet Planner
+              </Link>
             </div>
           )}
 

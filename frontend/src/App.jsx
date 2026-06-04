@@ -9,6 +9,8 @@ import { Auth } from "./pages/Auth";
 import { About } from "./pages/About";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
+import { NutritionTracker } from "./pages/NutritionTracker";
+import { DietPlanner } from "./pages/DietPlanner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
@@ -43,6 +45,8 @@ function App() {
             <Route path="/bmi" element={<ProtectedRoute><BMICalculator /></ProtectedRoute>} />
             <Route path="/workout" element={<ProtectedRoute><WorkoutPlanner /></ProtectedRoute>} />
             <Route path="/sleep" element={<ProtectedRoute><SleepTracker /></ProtectedRoute>} />
+            <Route path="/nutrition" element={<ProtectedRoute><NutritionTracker /></ProtectedRoute>} />
+            <Route path="/diet" element={<ProtectedRoute><DietPlanner /></ProtectedRoute>} />
             
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
