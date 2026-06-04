@@ -4,17 +4,17 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const signinBody = z.object({
-    email: z.email(),
-    password: z.string().min(6)
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters")
 });
 
 export const signIn = async (req, res) => {
     try {
-        const { success } = signinBody.safeParse(req.body);
+        const validation = signinBody.safeParse(req.body);
 
-        if (!success) {
+        if (!validation.success) {
             return res.status(400).json({
-                message: "Signin validation failed"
+                message: validation.error.errors[0].message
             });
         }
 

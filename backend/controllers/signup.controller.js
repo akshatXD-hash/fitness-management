@@ -5,18 +5,18 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const signupBody = z.object({
-    username: z.string().min(6),
-    email: z.email(),
-    password: z.string().min(6)
+    username: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters")
 });
 
 export const signUp = async (req, res) => {
     try {
-        const { success } = signupBody.safeParse(req.body);
+        const validation = signupBody.safeParse(req.body);
 
-        if (!success) {
+        if (!validation.success) {
             return res.status(400).json({
-                message: "Zod validation failed"
+                message: validation.error.errors[0].message
             });
         }
 
