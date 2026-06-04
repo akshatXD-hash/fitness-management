@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { generateWorkout, getWorkoutHistory } from "../services/api";
 import { Dumbbell, Activity, Calendar, Target } from "lucide-react";
+import { MarkdownRenderer } from "../components/MarkdownRenderer";
 
 export const WorkoutPlanner = () => {
   const [formData, setFormData] = useState({
@@ -217,18 +218,10 @@ export const WorkoutPlanner = () => {
             goal={result.primaryGoal}
           />
 
-          <div className="relative z-10 flex-grow overflow-y-auto custom-scrollbar pr-2 pb-4">
-            <h3 className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4">Command Terminal Sequence</h3>
-            <div className="prose prose-invert prose-sm max-w-none text-gray-400 prose-headings:text-emerald-primary marker:text-emerald-primary prose-strong:text-white">
-              <div
-                className="whitespace-pre-wrap leading-relaxed"
-                dangerouslySetInnerHTML={{
-                  __html: result.aiWorkoutPlan
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white bg-slate-900/50 px-1 py-0.5 rounded-sm">$1</strong>')
-                    .replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '<span class="mr-2 text-lg inline-block align-middle">$1</span>')
-                    .replace(/\n\n/g, '<div class="my-5 border-b border-slate-700/30"></div>')
-                }}
-              />
+          <div className="relative z-10 flex-grow overflow-y-auto custom-scrollbar pr-2 pb-4 mt-6">
+            <h3 className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2">Compiled Routine Details</h3>
+            <div className="bg-card border border-border shadow-sm rounded-xl p-6">
+              <MarkdownRenderer content={result.aiWorkoutPlan} />
             </div>
           </div>
         </Card>

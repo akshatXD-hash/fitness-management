@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { calculateBMI, getBMIHistory } from "../services/api";
 import { Calculator, Zap, Activity, Info } from "lucide-react";
+import { MarkdownRenderer } from "../components/MarkdownRenderer";
 
 export const BMICalculator = () => {
   const [formData, setFormData] = useState({ age: "", gender: "Male", height: "", weight: "" });
@@ -219,13 +220,15 @@ export const BMICalculator = () => {
           {/* New Horizontal Gauge Graph */}
           <BMIGauge bmi={result.bmi.bmiValue} />
           
-          <div className="border-t border-slate-700 pt-6 relative z-10 mt-6">
-            <h3 className="font-black text-white mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-primary inline-block animate-pulse"></span>
+          <div className="border-t border-border pt-6 relative z-10 mt-6">
+            <h3 className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary inline-block animate-pulse"></span>
               AI Insight Engine
             </h3>
             
-            {renderInsights(result.bmi.aiInsights)}
+            <div className="bg-card border border-border shadow-sm rounded-xl p-6">
+              <MarkdownRenderer content={result.bmi.aiInsights} />
+            </div>
           </div>
         </Card>
       ) : (
